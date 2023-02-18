@@ -1,6 +1,6 @@
 ARG PHP_VERSION
 
-FROM php:${PHP_VERSION:-"8.1"}-fpm-buster AS phpfpm-base
+FROM php:${PHP_VERSION:-"8.2"}-fpm-buster AS phpfpm-base
 
 LABEL maintainer="ToshY (github.com/ToshY)"
 
