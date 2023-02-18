@@ -8,15 +8,15 @@ on:
       version:
         description: 'PHP version'
         required: true
+        default: 8.2
         type: choice
         options:
-          - 8
           - 8.0
           - 8.1
           - 8.2
 
 env:
-  DEFAULT_VERSION: 8
+  DEFAULT_VERSION: 8.2
 
 jobs:
   release:
@@ -47,6 +47,11 @@ jobs:
           echo "version_minor=$version_minor" >> $GITHUB_OUTPUT;
           version_patch=$(docker run --rm php:${{ inputs.version || env.DEFAULT_VERSION }}-fpm-buster php -r 'echo explode(".",phpversion(),3)[2];');
           echo "version_patch=$version_patch" >> $GITHUB_OUTPUT;
+          enable_major_latest_version=false
+          if [[ "$version_major.$version_minor" == ${{ env.DEFAULT_VERSION }} ]]; then
+            enable_major_latest_version=true
+          fi
+          echo "enable_major_latest_version=$enable_major_latest_version" >> $GITHUB_OUTPUT
 
       - name: Docker meta - PHP-FPM buster
         id: meta_buster
@@ -54,10 +59,10 @@ jobs:
         with:
           images: t0shy/phpfpm-buster
           tags: |
-            type=raw,value=latest
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }}
+            type=raw,value=latest,enable=${{ steps.phpversion.outputs.enable_major_latest_version }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }},enable=${{ steps.phpversion.outputs.enable_major_latest_version }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }},enable=true
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }},enable=true
 
       - name: Build & Push - PHP-FPM buster
         uses: docker/build-push-action@v4
@@ -77,10 +82,10 @@ jobs:
         with:
           images: t0shy/phpfpm-buster-ffmpeg
           tags: |
-            type=raw,value=latest
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}
-            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }}
+            type=raw,value=latest,enable=${{ steps.phpversion.outputs.enable_major_latest_version }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }},enable=${{ steps.phpversion.outputs.enable_major_latest_version }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }},enable=true
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }},enable=true
 
       - name: Build & Push - PHP-FPM buster FFmpeg
         uses: docker/build-push-action@v4
