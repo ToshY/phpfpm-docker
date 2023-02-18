@@ -1,0 +1,95 @@
+name: Release
+
+on:
+  schedule:
+    - cron: '0 2 1,15 * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'PHP version'
+        required: true
+        type: choice
+        options:
+          - 8
+          - 8.0
+          - 8.1
+          - 8.2
+
+env:
+  DEFAULT_VERSION: 8
+
+jobs:
+  release:
+    name: Build & Push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Get semver versions
+        id: phpversion
+        run: |
+          version_major=$(docker run --rm php:${{ inputs.version || env.DEFAULT_VERSION }}-fpm-buster php -r 'echo explode(".",phpversion(),3)[0];');
+          echo "version_major=$version_major" >> $GITHUB_OUTPUT;
+          version_minor=$(docker run --rm php:${{ inputs.version || env.DEFAULT_VERSION }}-fpm-buster php -r 'echo explode(".",phpversion(),3)[1];');
+          echo "version_minor=$version_minor" >> $GITHUB_OUTPUT;
+          version_patch=$(docker run --rm php:${{ inputs.version || env.DEFAULT_VERSION }}-fpm-buster php -r 'echo explode(".",phpversion(),3)[2];');
+          echo "version_patch=$version_patch" >> $GITHUB_OUTPUT;
+
+      - name: Docker meta - PHP-FPM buster
+        id: meta_buster
+        uses: docker/metadata-action@v4
+        with:
+          images: t0shy/phpfpm-buster
+          tags: |
+            type=raw,value=latest
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }}
+
+      - name: Build & Push - PHP-FPM buster
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          target: phpfpm-buster
+          build-args: |
+            PHP_VERSION=${{ inputs.version || env.DEFAULT_VERSION }}
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta_buster.outputs.tags }}
+          labels: ${{ steps.meta_buster.outputs.labels }}
+
+      - name: Docker meta - PHP-FPM buster FFmpeg
+        id: meta_buster_ffmpeg
+        uses: docker/metadata-action@v4
+        with:
+          images: t0shy/phpfpm-buster-ffmpeg
+          tags: |
+            type=raw,value=latest
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}
+            type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }}
+
+      - name: Build & Push - PHP-FPM buster FFmpeg
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          target: phpfpm-buster-ffmpeg
+          build-args: |
+            PHP_VERSION=${{ inputs.version || env.DEFAULT_VERSION }}
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta_buster_ffmpeg.outputs.tags }}
+          labels: ${{ steps.meta_buster_ffmpeg.outputs.labels }}

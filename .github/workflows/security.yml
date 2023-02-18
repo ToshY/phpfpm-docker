@@ -1,0 +1,45 @@
+name: Security Check
+
+on:
+  schedule:
+    - cron: '30 2 1,15 * *'
+  workflow_dispatch:
+
+env:
+  PHPFPM_BUSTER: t0shy/phpfpm-buster
+  PHPFPM_BUSTER_FFMPEG: t0shy/phpfpm-buster-ffmpeg
+
+jobs:
+  check:
+    name: Image security check
+    runs-on: ubuntu-latest
+    steps:
+      - name: PHP-FPM Buster - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
+        uses: aquasecurity/trivy-action@0.9.1
+        with:
+          image-ref: ${{ env.PHPFPM_BUSTER }}:latest
+          severity: UNKNOWN,LOW,MEDIUM,HIGH
+          exit-code: 0
+
+      - name: PHP-FPM Buster - Latest - Trivy Scan - Critical Severity
+        uses: aquasecurity/trivy-action@0.9.1
+        with:
+          image-ref: ${{ env.PHPFPM_BUSTER }}:latest
+          ignore-unfixed: true
+          severity: CRITICAL
+          exit-code: 1
+
+      - name: PHP-FPM Buster - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
+        uses: aquasecurity/trivy-action@0.9.1
+        with:
+          image-ref: ${{ env.PHPFPM_BUSTER_FFMPEG }}:latest
+          severity: UNKNOWN,LOW,MEDIUM,HIGH
+          exit-code: 0
+
+      - name: PHP-FPM Buster - Latest - Trivy Scan - Critical Severity
+        uses: aquasecurity/trivy-action@0.9.1
+        with:
+          image-ref: ${{ env.PHPFPM_BUSTER_FFMPEG }}:latest
+          ignore-unfixed: true
+          severity: CRITICAL
+          exit-code: 1
