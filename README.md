@@ -25,21 +25,21 @@ mlocati/php-extension-installer:2.0
 PHP extensions:
 
 ```text
-mysqli
-pdo_mysql 
-exif 
-gd 
-imagick 
-imap 
-opcache 
-soap 
-zip 
-intl 
-gettext 
-sysvsem 
-amqp 
-redis 
-pcntl
+mysqli-stable
+pdo_mysql-stable
+exif-stable
+gd-stable
+imagick-stable
+imap-stable
+opcache-stable
+soap-stable
+zip-stable
+intl-stable
+gettext-stable
+sysvsem-stable
+amqp-stable
+redis-stable
+pcntl-stable
 ```
 
 Working directory:

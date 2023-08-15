@@ -10,7 +10,21 @@ COPY --from=mlocati/php-extension-installer:2.0 /usr/bin/install-php-extensions 
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN install-php-extensions mysqli pdo_mysql exif gd imagick imap opcache soap zip intl gettext sysvsem amqp redis pcntl \
+RUN install-php-extensions mysqli-stable \
+      pdo_mysql-stable \
+      exif-stable \
+      gd-stable \
+      imagick-stable \
+      imap-stable \
+      opcache-stable \
+      soap-stable \
+      zip-stable \
+      intl-stable \
+      gettext-stable \
+      sysvsem-stable \
+      amqp-stable \
+      redis-stable \
+      pcntl-stable \
     && apt-get update
 
 WORKDIR /app
