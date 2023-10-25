@@ -1,17 +1,17 @@
 <h1 align="center">🐋 PHP-FPM Docker</h1>
 
 <div align="center">
-    <a href="https://hub.docker.com/r/t0shy/phpfpm-buster"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fphpfpm--buster-blue" alt="t0shy/phpfpm-buster" /></a>
-    <a href="https://hub.docker.com/r/t0shy/phpfpm-buster-ffmpeg"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fphpfpm--buster--ffmpeg-blue" alt="t0shy/phpfpm-buster-ffmpeg" /></a>
+    <a href="https://hub.docker.com/r/t0shy/phpfpm-bookworm"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fphpfpm--bookworm-blue" alt="t0shy/phpfpm-bookworm" /></a>
+    <a href="https://hub.docker.com/r/t0shy/phpfpm-bookworm-ffmpeg"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fphpfpm--bookworm--ffmpeg-blue" alt="t0shy/phpfpm-bookworm-ffmpeg" /></a>
     <img src="https://img.shields.io/github/actions/workflow/status/toshy/phpfpm-docker/security.yml?branch=main&label=Security" alt="Security">
     <br /><br />
-    Customised <a href="https://hub.docker.com/_/php">PHP-FPM 8.x</a> docker images.
+    Customised <a href="https://hub.docker.com/_/php">PHP-FPM 8.1+</a> docker images.
 </div>
 
 ## 📦 Images
 
-- [t0shy/phpfpm-buster](https://hub.docker.com/r/t0shy/phpfpm-buster)
-- [t0shy/phpfpm-buster-ffmpeg](https://hub.docker.com/r/t0shy/phpfpm-buster-ffmpeg)
+- [t0shy/phpfpm-bookworm](https://hub.docker.com/r/t0shy/phpfpm-bookworm)
+- [t0shy/phpfpm-bookworm-ffmpeg](https://hub.docker.com/r/t0shy/phpfpm-bookworm-ffmpeg)
 
 ## 🐳 Dockerfile
 
@@ -50,13 +50,13 @@ Working directory:
 
 Additional packages:
 
-- [t0shy/phpfpm-buster](https://hub.docker.com/r/t0shy/phpfpm-buster)
+- [t0shy/phpfpm-bookworm](https://hub.docker.com/r/t0shy/phpfpm-bookworm)
   ```text
   software-properties-common
   zip
   unzip
   ```
-- [t0shy/phpfpm-buster-ffmpeg](https://hub.docker.com/r/t0shy/phpfpm-buster-ffmpeg)
+- [t0shy/phpfpm-bookworm-ffmpeg](https://hub.docker.com/r/t0shy/phpfpm-bookworm-ffmpeg)
   ```text
   software-properties-common
   nano

@@ -6,40 +6,40 @@ on:
   workflow_dispatch:
 
 env:
-  PHPFPM_BUSTER: t0shy/phpfpm-buster
-  PHPFPM_BUSTER_FFMPEG: t0shy/phpfpm-buster-ffmpeg
+  PHPFPM_BOOKWORM: t0shy/phpfpm-bookworm
+  PHPFPM_BOOKWORM_FFMPEG: t0shy/phpfpm-bookworm-ffmpeg
 
 jobs:
   check:
     name: Image security check
     runs-on: ubuntu-latest
     steps:
-      - name: PHP-FPM Buster - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
-        uses: aquasecurity/trivy-action@0.9.1
+      - name: PHP-FPM - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
+        uses: aquasecurity/trivy-action@0.13.0
         with:
-          image-ref: ${{ env.PHPFPM_BUSTER }}:latest
+          image-ref: ${{ env.PHPFPM_BOOKWORM }}:latest
           severity: UNKNOWN,LOW,MEDIUM,HIGH
           exit-code: 0
 
-      - name: PHP-FPM Buster - Latest - Trivy Scan - Critical Severity
-        uses: aquasecurity/trivy-action@0.9.1
+      - name: PHP-FPM - Latest - Trivy Scan - Critical Severity
+        uses: aquasecurity/trivy-action@0.13.0
         with:
-          image-ref: ${{ env.PHPFPM_BUSTER }}:latest
+          image-ref: ${{ env.PHPFPM_BOOKWORM }}:latest
           ignore-unfixed: true
           severity: CRITICAL
           exit-code: 1
 
-      - name: PHP-FPM Buster - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
-        uses: aquasecurity/trivy-action@0.9.1
+      - name: PHP-FPM FFmpeg - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
+        uses: aquasecurity/trivy-action@0.13.0
         with:
-          image-ref: ${{ env.PHPFPM_BUSTER_FFMPEG }}:latest
+          image-ref: ${{ env.PHPFPM_BOOKWORM_FFMPEG }}:latest
           severity: UNKNOWN,LOW,MEDIUM,HIGH
           exit-code: 0
 
-      - name: PHP-FPM Buster - Latest - Trivy Scan - Critical Severity
-        uses: aquasecurity/trivy-action@0.9.1
+      - name: PHP-FPM FFmpeg - Latest - Trivy Scan - Critical Severity
+        uses: aquasecurity/trivy-action@0.13.0
         with:
-          image-ref: ${{ env.PHPFPM_BUSTER_FFMPEG }}:latest
+          image-ref: ${{ env.PHPFPM_BOOKWORM_FFMPEG }}:latest
           ignore-unfixed: true
           severity: CRITICAL
           exit-code: 1

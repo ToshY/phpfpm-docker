@@ -1,6 +1,6 @@
 ARG PHP_VERSION
 
-FROM php:${PHP_VERSION:-"8.2"}-fpm-buster AS phpfpm-base
+FROM php:${PHP_VERSION:-"8.2"}-fpm-bookworm AS phpfpm-base
 
 LABEL maintainer="ToshY (github.com/ToshY)"
 
@@ -29,24 +29,24 @@ RUN install-php-extensions mysqli-stable \
 
 WORKDIR /app
 
-FROM phpfpm-base AS phpfpm-buster
+FROM phpfpm-base AS phpfpm-bookworm
 
 RUN apt-get install -y \
-    software-properties-common \
-    zip \
-    unzip \
+      software-properties-common \
+      zip \
+      unzip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-FROM phpfpm-base AS phpfpm-buster-ffmpeg
+FROM phpfpm-base AS phpfpm-bookworm-ffmpeg
 
 RUN apt-get install -y \
-    software-properties-common  \
-    nano \
-    zip \
-    unzip \
-    ffmpeg \
-    mkvtoolnix \
-    libimage-exiftool-perl \
+      software-properties-common  \
+      nano \
+      zip \
+      unzip \
+      ffmpeg \
+      mkvtoolnix \
+      libimage-exiftool-perl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
