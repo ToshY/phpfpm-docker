@@ -61,7 +61,7 @@ jobs:
 
       - name: Docker meta - PHP-FPM bookworm
         id: meta_bookworm
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: t0shy/phpfpm-bookworm
           tags: |
@@ -84,7 +84,7 @@ jobs:
 
       - name: Docker meta - PHP-FPM bookworm FFmpeg
         id: meta_bookworm_ffmpeg
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: t0shy/phpfpm-bookworm-ffmpeg
           tags: |
