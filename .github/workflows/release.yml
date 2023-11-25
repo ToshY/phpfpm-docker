@@ -4,19 +4,21 @@ on:
   schedule:
     - cron: '15 2 1,15 * *'
     - cron: '30 2 1,15 * *'
+    - cron: '45 2 1,15 * *'
   workflow_dispatch:
     inputs:
       version:
         description: 'PHP version'
         required: true
-        default: 8.2
+        default: 8.3
         type: choice
         options:
           - '8.1'
           - '8.2'
+          - '8.3'
 
 env:
-  DEFAULT_VERSION: 8.2
+  DEFAULT_VERSION: 8.3
 
 jobs:
   release:
@@ -38,8 +40,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Change PHP version to 8.2
+        if: github.event.schedule == '30 2 1,15 * *'
+        run: |
+          echo "DEFAULT_VERSION=8.2" >> $GITHUB_ENV
+
       - name: Change PHP version to 8.1
-        if: github.event.schedule == '15 2 1,15 * *'
+        if: github.event.schedule == '45 2 1,15 * *'
         run: |
           echo "DEFAULT_VERSION=8.1" >> $GITHUB_ENV
 
