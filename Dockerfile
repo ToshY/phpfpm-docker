@@ -1,6 +1,6 @@
 ARG PHP_VERSION
 
-FROM php:${PHP_VERSION:-"8.2"}-fpm-bookworm AS phpfpm-base
+FROM php:${PHP_VERSION:-"8.3"}-fpm-bookworm AS phpfpm-base
 
 LABEL maintainer="ToshY (github.com/ToshY)"
 
