@@ -14,7 +14,6 @@ RUN install-php-extensions mysqli-stable \
       pdo_mysql-stable \
       exif-stable \
       gd-stable \
-      imagick-stable \
       imap-stable \
       opcache-stable \
       soap-stable \
