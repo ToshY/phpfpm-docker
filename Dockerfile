@@ -24,7 +24,10 @@ RUN install-php-extensions mysqli-stable \
       amqp-stable \
       redis-stable \
       pcntl-stable \
-    && apt-get update
+    && apt-get update \
+    && apt-get install -y libssl-dev \
+    && docker-php-ext-configure ftp --with-openssl-dir=/usr \
+	  && docker-php-ext-install ftp
 
 WORKDIR /app
 
