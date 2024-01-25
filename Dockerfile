@@ -13,6 +13,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN install-php-extensions mysqli-stable \
       pdo_mysql-stable \
       exif-stable \
+      ftp-stable \
       gd-stable \
       imap-stable \
       opcache-stable \
@@ -24,10 +25,7 @@ RUN install-php-extensions mysqli-stable \
       amqp-stable \
       redis-stable \
       pcntl-stable \
-    && apt-get update \
-    && apt-get install -y libssl-dev \
-    && docker-php-ext-configure ftp --with-openssl-dir=/usr \
-	  && docker-php-ext-install ftp
+    && apt-get update
 
 WORKDIR /app
 
