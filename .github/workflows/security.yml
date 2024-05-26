@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PHP-FPM - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.21.0
         with:
           image-ref: ${{ env.PHPFPM_BOOKWORM }}:latest
           severity: UNKNOWN,LOW,MEDIUM,HIGH
           exit-code: 0
 
       - name: PHP-FPM - Latest - Trivy Scan - Critical Severity
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.21.0
         with:
           image-ref: ${{ env.PHPFPM_BOOKWORM }}:latest
           ignore-unfixed: true
@@ -30,14 +30,14 @@ jobs:
           exit-code: 1
 
       - name: PHP-FPM FFmpeg - Latest - Trivy Scan - Unknown, Low, Medium and High Severity
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.21.0
         with:
           image-ref: ${{ env.PHPFPM_BOOKWORM_FFMPEG }}:latest
           severity: UNKNOWN,LOW,MEDIUM,HIGH
           exit-code: 0
 
       - name: PHP-FPM FFmpeg - Latest - Trivy Scan - Critical Severity
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.21.0
         with:
           image-ref: ${{ env.PHPFPM_BOOKWORM_FFMPEG }}:latest
           ignore-unfixed: true
