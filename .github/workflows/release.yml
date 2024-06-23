@@ -77,7 +77,7 @@ jobs:
             type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }},enable=true
 
       - name: Build & Push - PHP-FPM bookworm
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           target: phpfpm-bookworm
@@ -100,7 +100,7 @@ jobs:
             type=raw,value=${{ steps.phpversion.outputs.version_major }}.${{ steps.phpversion.outputs.version_minor }}.${{ steps.phpversion.outputs.version_patch }},enable=true
 
       - name: Build & Push - PHP-FPM bookworm FFmpeg
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           target: phpfpm-bookworm-ffmpeg
