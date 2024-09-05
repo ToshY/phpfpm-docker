@@ -54,13 +54,13 @@ Working directory:
 
 Additional packages:
 
-- `t0shy/phpfpm-bookworm`
+- `phpfpm-bookworm`
   ```text
   software-properties-common
   zip
   unzip
   ```
-- `t0shy/phpfpm-bookworm-ffmpeg`
+- `phpfpm-bookworm-ffmpeg`
   ```text
   software-properties-common
   nano
