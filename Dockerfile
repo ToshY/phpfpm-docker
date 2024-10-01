@@ -25,7 +25,8 @@ RUN install-php-extensions mysqli-stable \
       amqp-stable \
       redis-stable \
       pcntl-stable \
-    && apt-get update
+    && apt-get update \
+    && apt-get install libexpat1=2.5.0-1+deb12u1
 
 WORKDIR /app
 

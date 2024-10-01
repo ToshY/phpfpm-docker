@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 env:
-  PHPFPM_BOOKWORM: t0shy/phpfpm-bookworm
-  PHPFPM_BOOKWORM_FFMPEG: t0shy/phpfpm-bookworm-ffmpeg
+  PHPFPM_BOOKWORM: ghcr.io/toshy/phpfpm-bookworm
+  PHPFPM_BOOKWORM_FFMPEG: ghcr.io/toshy/phpfpm-bookworm-ffmpeg
 
 jobs:
   check:
