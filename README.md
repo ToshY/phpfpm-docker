@@ -8,6 +8,9 @@
     Customised <a href="https://hub.docker.com/_/php">PHP-FPM 8.1+</a> docker images
 </div>
 
+> [!IMPORTANT]  
+> This repository has been superseded by [ToshY/docker-php](https://github.com/ToshY/docker-php).
+
 ## 📦 Images
 
 - `phpfpm-bookworm`
